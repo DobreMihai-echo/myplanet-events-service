@@ -1,0 +1,24 @@
+server:
+  port: 8060
+
+spring:
+  kafka:
+#    producer:
+#      bootstrap-servers: broker:9092
+#      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-serializer: org.apache.kafka.common.serialization.StringDeserializer
+#    topic:
+#      name: myplanet_notification_topic
+  application:
+    name: events-service
+  datasource:
+    url: jdbc:postgresql://postgres-events-service:5433/eventdb
+    username: eventprod
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true

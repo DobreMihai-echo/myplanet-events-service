@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: events-service
+  name: events-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: events-service
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: events-service
+    spec:
+      containers:
+        - env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres-events-service:5433/eventdb
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+          image: IMAGE_URL/events-service:latest
+          name: events-service
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: events-service
+  name: events-service
+spec:
+  ports:
+    - name: "80"
+      port: 80
+      targetPort: 8060
+  selector:
+    app: events-service
+status:
+  loadBalancer: {}
