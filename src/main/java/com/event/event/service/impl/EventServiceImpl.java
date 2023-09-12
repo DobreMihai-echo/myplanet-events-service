@@ -52,6 +52,7 @@ public class EventServiceImpl implements EventService {
 
     public List<String> unjoinEvent(Long eventId, String username) {
         Event events = repository.getReferenceById(eventId);
+        System.out.println("USERNAME" + username);
         events.getEventJoiners().remove(username);
         repository.save(events);
         System.out.println("EVENT JOINER:" + events.getEventJoiners());
